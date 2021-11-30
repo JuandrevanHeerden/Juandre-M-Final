@@ -1,0 +1,66 @@
+\chapter{Declaration}
+
+I, \thethesisauthor, hereby declare that:
+
+\begin{itemize}
+
+\item The work in this dissertation is my own work.
+
+\item All sources used or referred to have been documented and
+recognized.
+
+\item This \MakeLowercase{\thethesistype} has not previously been
+submitted in full or partial fulfillment of the requirements for
+an equivalent or higher qualification at any other recognized
+educational institute.
+
+\end{itemize}
+
+%% You could of course include your signature electronically if you want to be fancy
+%% Scanning and convert to eps should do the trick
+%\includegraphics{signature}
+%% or you could just leave some space for it
+\rule[0mm]{0mm}{40mm}
+
+\rule[0mm]{70mm}{0.3mm}
+
+\thethesisauthor
+
+
+\chapter{Abstract}
+
+Information security is crucial to the continuous well-being of
+modern organizations. Humans play a significant role in the
+processes needed to secure an organization's information
+resources. Without an adequate level of user \textbf{co-operation}
+and \textbf{knowledge}, many security techniques are liable to be
+misused or misinterpreted by users. This may result in an adequate
+security measure becoming inadequate. It is therefor necessary to
+educate the organization's employees regarding information
+security and also to establish a corporate sub-culture of
+information security in the organization, which will ensure that
+the employees have the correct attitude towards their security
+responsibilities. Current information security education programs
+fails to pay sufficient attention to the behavioral sciences.
+There also exist a lack of knowledge regarding the principles, and
+processes, that would be needed for the establishment of an
+corporate sub-culture, \emph{specific} to information security.
+Without both the necessary knowledge, \textbf{and} the desired
+attitude amongst the employee, it will be impossible to guarantee
+that the organization's information resources are secure. It would
+therefor make sense to address both these dimensions to the human
+factor in information security, using a single integrated,
+holistic approach. This dissertation presents such an approach,
+which is based on an integration of sound behavioral theories.
+
+
+\chapter{Acknowledgements}
+
+My grateful thanks goes to the following people:
+
+My promoter, Professor Rossouw von Solms. His knowledge, guidance,
+support and patience have played a major role in the completion of
+this dissertation.
+
+My wife, Ezanne, for her support, especially when things were not
+going according plan.

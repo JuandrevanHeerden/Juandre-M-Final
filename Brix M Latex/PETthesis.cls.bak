@@ -1,0 +1,343 @@
+%% -----------------------------------------------------------------------
+%% Style Sheet for Theses at PE Technikon Computer Studies Faculty
+%% -----------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{petthesis}[2002/04/01]
+
+% Author: Reinhardt A Botha (rbotha@computer.org)
+% Version: 01-Apr-2002
+
+\def\currversion{Apr 1, 2002} 
+
+\newif\if@partial@
+\newif\if@copromote@
+\newif\if@btech@
+\newif\if@mtech@
+\newif\if@dtech@
+\newif\if@itarea@
+\newif\if@bisarea@
+\newif\if@draft@
+
+\DeclareOption{prepare}{
+  \@draft@true
+}
+
+\DeclareOption{final}{
+  \@draft@false
+}
+
+\DeclareOption{copromote}{
+  \@copromote@true
+}
+
+\DeclareOption{nocopromote}{
+  \@copromote@false
+}
+
+\DeclareOption{btech}{
+  \@btech@true
+  \@mtech@false
+  \@dtech@false
+  \@partial@true
+  \@itarea@true
+  \@bisarea@false
+}
+
+\DeclareOption{mtech}{
+  \@btech@false
+  \@mtech@true
+  \@dtech@false
+  \@partial@false
+  \@itarea@true
+  \@bisarea@false
+}
+
+\DeclareOption{mtechbis}{
+  \@btech@false
+  \@mtech@true
+  \@dtech@false
+  \@partial@true
+  \@itarea@false
+  \@bisarea@true
+}
+
+\DeclareOption{dtech}{
+  \@btech@false
+  \@mtech@false
+  \@dtech@true
+  \@partial@false
+  \@itarea@true
+  \@bisarea@false
+}
+
+\DeclareOption{10pt}{
+  \ClassWarningNoLine{petprop}{%
+    The `10pt' option is not allowed in the `petprop' class}
+  \OptionNotUsed
+}
+\DeclareOption{11pt}{
+  \ClassWarningNoLine{petprop}{%
+    The `11pt' option is not allowed in the `petprop' class}
+  \OptionNotUsed
+}
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ExecuteOptions{nocopromote}
+\ExecuteOptions{final}
+\ProcessOptions\relax
+\LoadClass[12pt,a4paper,oneside]{book}
+\RequirePackage{apacite}
+\RequirePackage{verbatim}
+   
+
+\def\@universityname{}        
+\def\@thesismonth{}           
+\def\@thesisyear{}            
+\def\@thesisfaculty{}         
+\def\@thesispromoter{}        
+\def\@thesiscopromoter{}      
+\def\@thesistype{}
+
+\def\@thesisleadertype{}
+\def\@thesiscoleadertype{} 
+\def\@thesisarea{}                      
+                           
+\def\@thesisauthor{\@author}  
+\def\@thesistitle{\@title}    
+
+% Decide on wording based on the degree
+\if@btech@
+  \def\@thesisdegree{Baccalaureus Technologiae} 
+  \def\@thesisleadertype{Supervisor}
+  \def\@thesiscoleadertype{Co-supervisor}
+\else
+  \if@mtech@
+      \def\@thesisdegree{Magister Technologiae}
+      \def\@thesisleadertype{Promoter}
+      \def\@thesiscoleadertype{Co-promoter}
+  \else
+      \def\@thesisdegree{Doctor Technologiae}
+      \def\@thesisleadertype{Promoter}
+      \def\@thesiscoleadertype{Co-promoter}
+  \fi
+\fi
+
+\newcommand{\thethesisdegree}{
+  \@thesisdegree
+}
+      
+%Decide whether its a full disseration or partial research component
+\if@mtech@
+   \def\@thesistype{Dissertation}
+   \if@partial@
+      \def\@fulfilltext{submitted in partial fulfillment\\of the requirements\\ for the degree}
+   \else
+      \def\@fulfilltext{submitted in fulfillment\\of the requirements\\for the degree}
+   \fi
+\else
+  \if@btech@
+      \def\@thesistype{Mini-thesis}
+      \def\@fulfilltext{submitted in fulfillment of the\\ Project IV requirements \\for the degree} 
+  \else
+     \if@dtech@
+        \def\@thesistype{Thesis}
+        \def\@fulfilltext{submitted in fulfillment\\of the requirements\\for the degree}    
+     \fi
+  \fi   
+\fi
+
+%Decide on IT or BIS
+
+\if@itarea@
+  \def\@thesisarea{Information Technology}
+\else
+   \if@bisarea@
+     \def\@thesisarea{Business Information Systems}
+   \else
+     \def\@thesisarea{????????????????????????????}
+   \fi
+\fi
+
+
+\newcommand{\thethesistitle}{
+  \@thesistitle
+}
+\newcommand{\thethesisauthor}{
+  \@thesisauthor
+}
+\newcommand{\thethesisarea}{
+  \@thesisarea
+}
+\newcommand{\thefulfillmenttext}{
+   \@fulfilltext
+}
+
+\newcommand{\universityname}[1]{
+  \def\@universityname{#1}
+}
+\ifx\@universityname\empty
+  \def\@universityname{Nelson Mandela Metropolitan University}
+\fi
+\newcommand{\theuniversityname}{%
+  \@universityname
+}
+
+\newcommand{\thesisfaculty}[1]{
+  \def\@thesisfaculty{#1}
+}
+\ifx\@thesisfaculty\empty
+  \def\@thesisfaculty{Faculty of Engineering}
+\fi
+\newcommand{\thethesisfaculty}{
+  \@thesisfaculty
+}
+
+\newcommand{\thesispromoter}[1]{
+  \def\@thesispromoter{#1}
+}
+\ifx\@thesispromotor\empty
+  \def\@thesispromotor{Reinhardt A. Botha}
+\fi
+\newcommand{\thethesispromoter}{
+  \@thesispromoter
+}
+\newcommand{\thethesisleadertype}{
+  \@thesisleadertype
+}
+  
+\newcommand{\thesiscopromoter}[1]{
+  \def\@thesiscopromoter{#1}
+}
+\if@copromote@
+  \newcommand{\copromoter}{\textbf{\@thesiscoleadertype : \@thesiscopromoter \\[4mm]}}
+\else
+  \newcommand{\copromoter}{\rule[0mm]{0mm}{6mm}}
+\fi
+
+
+\newcommand{\thesismonth}[1]{
+  \def\@thesismonth{#1}
+}
+\newcommand{\thethesismonth}{
+  \@thesismonth
+}
+\newcommand{\thesisyear}[1]{
+  \def\@thesisyear{#1}
+}
+\newcommand{\thethesisyear}{
+   \@thesisyear
+}
+
+\newcommand{\thethesistype}{
+  \@thesistype
+}
+
+\newcommand{\thesistitletypesize}{\Large}
+
+\newcommand{\thesistypetypesize}{\large}
+
+\newcommand{\thesistypesize}{\large}
+\newcommand{\thesisdegreetypesize}{\large}
+\newcommand{\thesisareatypesize}{\large}
+\newcommand{\thesisfacultytypesize}{\large}
+
+\if@draft@
+   \newcommand{\datestamp}{Draft Version: \@date}
+\else
+   \newcommand{\datestamp}{\thethesismonth  \thethesisyear}
+\fi
+
+%% Setup the page formats
+
+\setlength{\topmargin}{0pt}
+\setlength{\footskip}{1.5cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2.5cm}
+
+%% make sure that larger figures can also float to the bottom of the page
+\renewcommand{\bottomfraction}{0.4}
+\setcounter{topnumber}{1}
+
+\newcommand{\bigspace}{\linespread{1.3}}
+\newcommand{\smallspace}{\linespread{1}}
+
+
+% To make margin paragraphs for editing notes ...
+% WinEdt can be setup so that it can list it thru its gather interface
+% --------------------------------------------------
+\newcommand{\todo}[1]{\marginpar{\tiny #1 }}
+
+% To raise a table entry to be in middle of two rows
+% --------------------------------------------------
+\newcommand{\rb}[1]{\raisebox{1.5ex}[0pt]{#1}}
+
+\raggedbottom
+
+\newcommand{\thesistitlepage}{
+    \thispagestyle{empty}
+    \begin{center}
+      \textbf{\thesistitletypesize \thethesistitle} \\[6mm]
+      by \\[8mm]
+      \textbf{\thethesisauthor} \\[20mm]
+      \textbf{\thesistypetypesize \thethesistype} \\[6mm]
+      \thefulfillmenttext \\[6mm]
+      \textbf{\thesisdegreetypesize \thethesisdegree} \\[6mm]
+      in\\[6mm]
+      \textbf{\thesisareatypesize \thethesisarea} \\[6mm]
+      in the\\[6mm]
+      \textbf{\thesisfacultytypesize \thethesisfaculty} \\[6mm]
+      of the\\[6mm]
+      \textbf{\large \theuniversityname}
+      \\[20mm]
+      \textbf{\thethesisleadertype : \thethesispromoter} \\[4mm]
+      \copromoter
+      \datestamp
+      %\today
+    \end{center}
+    \newpage 
+    \thispagestyle{empty}
+    \rule[0mm]{0mm}{80mm}
+    \newpage
+    }
+
+
+\newcommand{\thesiscoverpage}{
+    \thispagestyle{empty}
+    \begin{center}
+      \rule[0mm]{0mm}{80mm}\\
+      \textbf{\thesistitletypesize \thethesistitle} \\[8mm]
+      by \\[8mm]
+      \textbf{\thethesisauthor} \\[25mm]
+    \end{center}
+    \newpage
+    \thispagestyle{empty} 
+    \rule[0mm]{0mm}{80mm}
+    \newpage
+    \thispagestyle{empty} 
+    
+}
+
+\if@draft@
+   \renewcommand{\maketitle}{
+       \thesistitlepage
+       \setcounter{page}{1}}
+\else       
+   \renewcommand{\maketitle}{
+       \thesiscoverpage 
+       \thesistitlepage
+       \setcounter{page}{1}}
+\fi
+
+
+\renewenvironment{table}
+               {\smallspace \small \@float{table}}
+               {\end@float \normalsize \bigspace}
+\setlength\abovecaptionskip{10\p@}
+\setlength\belowcaptionskip{10\p@}
+
+
+\newenvironment{codesample}%
+  {\noindent \rule[0mm]{\textwidth}{0.3mm}%
+   \smallspace\footnotesize\verbatim}
+  {\endverbatim%
+   \rule[0mm]{\textwidth}{0.3mm}}

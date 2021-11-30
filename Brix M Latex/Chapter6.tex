@@ -1,0 +1,305 @@
+\chapter{Prototype development}
+\label{chap: Chapter 6}
+
+
+Chapter 5 introduced the conceptual model. This chapter will discuss everything that is needed to develop the prototype, the experiments and the refinement. Each set of experiments will be discussed along with the refinement done to it. The RRRP is short for Recommending Related Research Papers and essentially provides an implementation of the conceptual model defined in chapter \ref{chap: Chapter 5}. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{./figures/flowresearch12.eps}
+\caption{High level overview of the prototype}
+\label{fig:prototype}
+\end{figure}
+
+The rest of the chapter will look at each elements in the pipeline as depicted in figure \ref{fig:prototype} especially with the focus on the refinements that was done.
+The figure \ref{fig:prototype} illustrates the steps that was followed in the creation of the prototype. Furthermore, figure \ref{fig:prototype} shows mappings from the prototype development and refinement to the various parts at which was created in the conceptual model chapter, in chapter \ref{chap: Chapter 5}.
+In addition, the parts that was intentionally neglected will also be discussed. This chapter will now start with a overview of the development of the RRRP prototype.
+
+\section{Prototype overview}
+The prototype can be split up into four parts at a system level view: (1) identification and removal of the stopwords, (2) stemming the text, (3) topics of the model, and (4) similarity measurement between the test and training set. Although the identification and removal of stopwords and stemming can be grouped under pre-processing, it is important to note that each has an important role in the development of the prototype. Each part plays a critical role in how usable the text is for further topics modeling. Stopword identification and removal is a process that is applied the same in the learning phase and testing phase of the prototype, the same goes for stemming.
+
+As mentioned in section \ref{ssec:model}, it is utmost important to develop a prototype to validate a model. There will always be lesson to be learned, which will be discussed in chapter \ref{chap: Chapter 7}.
+
+The RRRP prototype was developed to achieve the following goals:
+\begin{enumerate}
+    \item To better understand the problem domain, the research problem and solution.
+    \item To show that the Nature Language Processing and Topic modeling approach is feasible.
+    \item To be used in recommending research papers and see the relevance of those recommendations made from the prototype.
+\end{enumerate}
+The RRRP prototype has undergone three iterations which have supported the goals stated above. The first iteration tied in with the first goal, to better understand the domain and explore a possible solution. The first iteration provided insight by exploring how recommender systems work and techniques employed to achieve the desired goal. The second iteration focused more on the initial pre-processing phase of the prototype along with the topic modeling algorithm, Latent Dirichlet Allocation (LDA) and what to be learned from the development. The topics were later analysed to assess if this approach will be sufficient. Lastly, the third iteration of the prototype was more polished and had refinement done to it. The focus shifted slightly from NLP and Topic modeling to better the quality of the recommendations the prototype has made. Throughout the third iteration, several parameters, in the LDA algorithm, were changed to better the recommendations. Unless specified otherwise, reference to the RRRP prototype will imply the usage of the third iteration of the prototype. 
+
+The researcher decided on Python as the base development environment. Python is a programming language that has gotten it's popularity in recent years for the modularity and effectiveness of handling data. Many developers has built various libraries in aiding the Machine Learning and Information Retrieval community for better system building.
+
+More specifically the researcher used Jupyter Notebook to build and test the prototype. Jupyter Notebook is a web application which provides a python development environment for users. Jupyter Notebook can be used in various ways; data cleaning, data transformation, statistical modeling, data visualization and Machine learning. It allows you to create and share documents that contains live coding, visualizations and text. Thus, making it perfect for reproducability of the prototype and making the experimentation easier.
+
+Every part within the RRRP prototype will now be discussed along with the various components related to each part.
+
+\section{Identification and removal of stopwords} \label{ssec:pre}
+
+More frequent than not, looking for papers and analyzing them is a daunting task for most researchers. The problem is that those papers found by researchers has too much noise to do the needful. Thus, creating the need to clear all the unwanted noise from the text. One of the process within pre-processing is called stopword removal. 
+
+Pre-processing contains a lot of techniques to clear the text and make it ready for analysis. These techniques are primarily used in text mining pipelines to better the text input into Information Retrieval systems. These techniques include tokenization, stopword removal, and stemming and transforming the data into a vector space later in various text mining algorithms. 
+
+Before stopwords can be removed, they first need to be identified. Each document that needs to be pre-processed contains certain domain knowledge that is not shared across other domains. Specific domain knowledge needs to be identified first, and then certain words applied to the stopword list. First the data needs to be extracted and analysed. In the next sub section, we will discuss how the data was extracted. After that, we will discuss the steps taken to identify domain specific words and add them to the stopword list.
+
+\subsection{Extracting the data}
+The data used in this study was obtained from the International Information Security South Africa Conference website. The articles were downloaded and documented in a per year fashion. Furthermore, the abstracts along with the title of each article were manually extracted into the form of ten csv files as seen in figure \ref{fig:github}. Each csv file had two columns named \textit{title} and \textit{abstract}.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=2cm]{./figures/github.png}
+\caption{Data on Github}
+\label{fig:github}
+\end{figure}
+The collection of csv file were uploaded to github for documentation and reproducible purposes. A python library called Pandas was used to handle the data as seen in figure \ref{lst:data}. Pandas is a well known library which is primarily used to manipulate data. 
+\begin{lstlisting}[language=Python, label={lst:data}, caption=Importing data to the system]
+# Import Dataset
+df = pd.read_csv('https://raw.githubusercontent.com/juandre/Fake/master/2006csv.csv', usecols = ['abstracts','title'])
+df1 = pd.read_csv('https://raw.githubusercontent.com/juandre/Fake/master/2008csv.csv', usecols = ['abstracts','title'])
+frames = [df, df1]
+df = pd.concat(frames, ignore_index=True)
+df.head()
+\end{lstlisting}
+The dataset consists of 254 documents spread over 10 years. As shown in figure \ref{fig:data}, the largest document has 235 words whereas the document with the least number of words are 10. The average number of words in the documents are 110, what this means is that there are around 20 percent of the words that will actually have meaning. Usually, out of 100 words used in a piece of writing 20 are of meaning, the rest are filler words or stopwords.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6cm]{./figures/docstats.png}
+\caption{Statistics of the documents}
+\label{fig:data}
+\end{figure}
+It is best practice to remove all the stopwords and unwanted characters from your dataset. Junk-in equals junk out. In order to achieve good results, a decision was made to clear the text from unwanted characters. The next sub section includes further removal of unwanted text.
+
+\subsection{Regular expressions}
+Regular expression can be seen as a sequence of characters that can be used to search for patterns, and those patterns are used to find and replace those characters. The nature of the domain of the document suggests that email addresses and other unconventional characters could be found in the text, therefore figure \ref{lst:re} was used to remove these characters.
+\begin{lstlisting}[language=Python, label={lst:re}, caption=Regular Expression]
+text = re.sub("((\S+)?(http(s)?)(\S+))|((\S+)?(www)(\S+))|((\S+)?(\@)(\S+)?)", " ", text)
+\end{lstlisting}
+This code segment was only running once because all data was already in one big data frame. Looking at the raw text, the researcher found ligature characters which was also needed to be removed and replaced. In the next sub section more details were discussed.
+
+\subsection{Ligature Characters} \label{ssec:ligature}
+
+In writing or typography, two or more characters can be merged into one to form; a glyph or single character called a ligature. Ligature characters were commonly used in \TeX{}. \TeX{} is a formatting system that was created and made famous in academia. The ease of executing specific typesetting tasks gave \TeX{} its popularity. 
+
+This research dataset contains older papers published in 2006 onward, making it ligature prone. The two ligatures that were found in this research were; fi and fl. The main reason to replace these ligatures is to normalize the text, so readers that do not change their font encodings can have no problems reading it.
+As seen in Listing \ref{lst:ligature}, the use of regular expressions were employed to find and replace the ligatures respectively.
+\begin{lstlisting}[language=Python, label={lst:ligature}, caption=Replacing Ligature Characters]
+    # Remove fi and fl ligature characters
+    text = re.sub("fi", "fi", text)
+    text = re.sub("fi", "fl", text)
+\end{lstlisting}
+After removing the ligature characters, the normalized, tokenized text is ready for the stopwords to be removed.
+
+\subsection{Stopword Removal}
+A stopword can be defined as a word that is commonly used within a sentence. However, stopwords in this study are standard Information Security terms that need to be filtered out to enhance the quality of the topics. This was a delicate tweaking process. Only after the data was tokenized and viewed by the researcher a call was made to include several terms. The additional terms that was added was appended to the stopword list as seen in Listing \ref{lst:stopword}, the total number of stopwords totaled up to 282. After the filler words were excluded from the corpus, the next step in the pipeline is to stem the words.
+\begin{lstlisting}[language=Python,label={lst:stopword}, caption=stopwords code]
+stop_words = stopwords.words('english')
+stop_words.extend(['used','using','jam','found','plays','information','security','network', 'technology', 'bgp'])
+\end{lstlisting}
+
+\section{Stemming}
+As mentioned in chapter \ref{ssec:stemming}, the Porter stemmer is used in the research \cite{porter1980algorithm}. The goal of a stemmer is to reduce the forms of a word to the common base word. Stemmers usually cuts off the end part (affixes) to achieve above goal. 
+
+Stemmers are easy to implement and do not need the time or resources to complete the task. This research looked at high performance, low time, or resources spent on normalization of words. Stemming was selected to be used in this study based on the simplicity and time it takes.
+
+In the below listing \ref{lst:stemming}, we display the code snippet of how the stemmer was used.
+
+\begin{lstlisting}[language=Python, label={lst:stemming}, caption=Stemming the corpus]
+stemmer = PorterStemmer()
+def stem_words(text):
+    """
+    Function to stem words, so plural and singular are treated the same
+    """
+    try:
+        text = [stemmer.stem(word) for word in text]
+        text = [word for word in text if len(word) > 1] #make sure we have no 1 letter words
+    except IndexError: # catch the exception
+        pass
+    return text
+
+\end{lstlisting}
+
+In listing \ref{lst:stemming}, the core code was to instantiate the Porter stemmer and feed the data through it. We also encountered that some words like 'eod' broke this and needed to insert a try catch, to make the code continue running. 
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Word} & \textbf{Stemmed word} \\ \hline
+informational & inform \\ \hline
+translations & translat \\ \hline
+evaluating & evalu \\ \hline
+itemization & item \\ \hline
+awareness & awar \\ \hline
+reference & refer \\ \hline
+plotted & plot \\ \hline
+\end{tabular}
+\caption{Stemming words from the data}
+\label{tab:stemming}
+\end{table}
+
+Some of the words that was found in the data along with their root forms can be viewed in table \ref{tab:stemming}. The Porter stemmer takes the original word back to it's root form.
+
+In the next section, getting topics for the model will be discussed.
+
+\section{Topics for the model}
+This section will be a in depth continuation from chapter \ref{ssec:topic}. The bag of words was the step  taken between normalising the data and feeding it into a topic modeling algorithm. Later in this section, the topic modeling technique and its parameter refinement will be discussed.
+
+\subsection{Bag of Words}
+For the topic modeling techniques to compute the latent topics, it needs to understand the document. Before the text gets to the topic modeling technique, the text is just tokenized and normalized. Thus, creating the need to represent the text in a manner, the topic modeling technique can interpret it. The most common technique in Natural Language Processing and Information Retrieval is the Bag of Words (BoW) model.
+
+The Bag of Words (BoW) model can be used to extract features from the text. A BoW model is a way to simplify the representation of words in a document. Note that it is called a 'bag of words', the order of the words or sentence of the words does not bear merit. The BoW model is only interested in known words in the document, and the rest is discarded. \citeA{goldberg2017neural} mentions that documents are similar if they have similar content. The BoW model can be simple to use or rather complex by determining the vocabulary of known words and how to score the reoccurring words. 
+
+Determining the vocabulary will be shown below.
+Below are snippets from a paper dealing with Phishing attacks occurring through email and social networking sites. Each sentence will be handled as a document. Ignoring case and punctuation, the sentences are:
+\begin{itemize}
+    \item Phishers continuously seek new methods... 
+    \item Conducting phishing solely through email...
+    \item Social network phishing and discusses...
+\end{itemize}
+After removing stopwords. The unique words here are:
+\begin{enumerate}
+    \item "Phish"
+    \item "Method"
+    \item "Conduct"
+    \item "Email"
+    \item "Social"
+    \item "Network"
+\end{enumerate}
+This is a vocabulary of 6 words from a corpus of 15 words. 
+Scoring the words can commence once the vocabulary has been selected. There are two scoring approaches one can follow. They are;
+\begin{enumerate}
+    \item Counting the number of times the word is being used in the corpus.
+    \item Frequencies can be calculated by how frequently each word is used out of all the other words.
+\end{enumerate}
+This research employed the first scoring approach by counting the words. A library called Gensim with a function of doc2bow was used to count the number of times the word occurs, converts the word to a word id and then returns the result as a sparse vector \cite{rehurek2010software}. 
+Scoring the previous three documents against the vocabulary of 6 words will look as follows:
+\begin{lstlisting}[language=Text, label={lst:scoring}, caption=Scoring the documents]
+    Phishers continuously seek new methods = [1, 0, 0, 0, 0]
+    Conducting phishing solely through email = [1, 1, 0, 0, 1]
+    Social network phishing and discusses = [1, 1, 1, 0, 0]
+\end{lstlisting}
+Each sentence in listing \ref{lst:scoring} was compared to the tokenized and normalized list. 
+In conclusion, the BOW model dis-regards context, the meaning of the words and lastly, the order which the words appear. Thus gives the BOW model its strength because the more similar  words are, the more similar documents are to each other. In the next subsection, we will be discussing how the vector (BOW) is used in the topic modeling technique.
+
+\subsection{Topic modeling parameters} \label{ssec:LDA}
+
+In chapter \ref{chap: Chapter 3}, this study discussed what Latent Dirichlet Allocation is and how it works. In this section we will discuss how the LDA algorithm parameters works on a deeper level. It should be said that in Latent Dirichlet Allocation order of the words do not matter, because of the Bag-Of-Words model used in the study. 
+
+The dataset consists of several documents and a document is a distribution over topics. Each topic within the document is a distribution over words that is then added to a vocabulary. Latent Dirichlet Allocation is a probabilistic model that identifies hidden variables within text. To infer such variables using LDA, the algorithm has parameters that steers the inference process. These parameters include number of topics, chunksize, corpus, minimum probability, id2word, alpha and beta. The last two parameters, alpha and beta is known as hyperparameters, all of the parameters will now be defined:
+\begin{enumerate}
+    \item Number of topics - The number of topics to be extracted from the training set.
+    \item Chunk size - The number of documents that are processed per training cycle.
+    \item Corpus - It is the stream of documents that has been transformed into a vector.
+    \item Minimum-probability - Inferred topics that has a probability score less than this threshold will be filtered out.
+    \item Passes - The number of passes the corpus goes through during training.
+    \item Id2Word - The main feature is mapping word id to words. It also help to determine the vocabulary size.
+    \item Alpha - A high value means that text will be represented by more topics and the inverse also holds true. Low value means that the text will be represented by fewer topics.
+    \item Beta - A high beta value means that the topics are represented by more words.
+   
+\end{enumerate}
+As seen in listing \ref{lst:lda}, getting the best topics from the algorithm does require fine tuning. Most of the parameters have previous workings which influences the quality of the topics inferred by die LDA algorithm, for example, with pre-processing it's garbage in garbage out, does the number of topics capture the total number of inferred topics? See below in listing \ref{lst:lda} the parameters and values that this research used.
+\begin{lstlisting}[language=Python, label={lst:lda}, caption=LDA Parameters]
+def train_lda(data):
+    num_topics = 10
+    chunksize = 300
+    dictionary = corpora.Dictionary(data['tokenized'])
+    corpus = [dictionary.doc2bow(doc) for doc in data['tokenized']]
+    t1 = time.time()
+    ten = LdaModel(corpus=corpus, num_topics=num_topics, id2word=dictionary, chunksize=chunksize, minimum_probability=0.0,iterations=100)
+    t2 = time.time()
+    print("Time to train LDA model on ", len(df), "articles: ", (t2-t1)/60, "min")
+    return dictionary,corpus,ten
+\end{lstlisting}
+When experimenting with the parameter, the researcher found that it was not that complex to obtain good topics with minimal tweaking of the parameters. However, the one parameter, number of topics is one of the critical parameters that has the most influence of the quality of the model. Selecting the number of topics will now be discussed.
+
+\subsection{Selecting the Number of Topics} \label{ssc:lekker}
+Finding the optimal number of topics for the LDA algorithm to provide better interpretability is rather a daunting task. There are two techniques to achieve the main goal of selecting the number of topics to be inferred.
+First, after running the LDA algorithm with K number of topics, one can use Topic Coherence which scores a single topic by measuring the semantic similarity. The measurement is done seeing how the topic is similar to the high ranking words in the topic. Topic coherence help seek the difference between semantically inferred topics and topics that are created of statistical inference. 
+
+\begin{lstlisting}[language=Python, label={lst:cv}, caption=Topic coherence]
+10topics = CoherenceModel(model=10LDA,texts=listt,dictionary=dictionary,coherence='c_v')
+0.36285839731827135 = 10 topics
+0.32723852556113137 = 15 topics
+0.358826134976557   = 20 topics
+0.33560120776491093 = 25 topics
+0.33958962920470964 = 30 topics
+0.3203274912859999  = 35 topics
+\end{lstlisting}
+As seen in listing \ref{lst:cv}, 10 topics is a coherence model that uses the LDA model with the number of topics set to 10 and increments by 5 per output. Below that is the coherence score of a range between 10 to 35 topics respectively. \cite{stevens-etal-2012-exploring} argues that the higher the coherence score the more semantically similar the topics are. However, the first ready should normally be ignored and the next highest value should be used. Based on this, the researcher used 20 topics to infer from the LDA model.
+
+Lastly, the other technique is more observation based called Eye-balled method. The technique consists of two main parts. One part is looking at the output of the LDA algorithm and seeing if the keywords in the topic are actually making sense. The other part pyLDAvis must be looked at. PyLDAvis is a visualization tool used to visualize the output of the LDA algorithm. 
+In listing \ref{lst:ldaout} topic 0 can be represented as: bank, mobile, similar, compute, website and much more. They are ranked from higher to a lower number between 0 and 1. Closer to 1 means that the weight is reflecting the importance of a keyword in that topic.
+\begin{lstlisting}[language=text, label={lst:ldaout}, caption=LDA topic output]
+[(0,
+  '0.017*"bank" + 0.011*"mobil" + 0.007*"similar" + 0.007*"comput" + '
+  '0.007*"websit" + 0.007*"student" + 0.007*"system" + 0.006*"digit" + '
+  '0.006*"vote" + 0.005*"technolog" + 0.005*"techniqu" + 0.005*"framework" +
+  '0.005*"measur" + 0.005*"domain" + 0.005*"phish" + 0.005*"toward" + '
+  '0.005*"south" + 0.005*"develop" + 0.005*"distanc" + 0.005*"engin"')]
+\end{lstlisting}
+If the keywords in the topic contains no real words of value, the stopword list should be updated to remove such words. This is a common occurrence in domain specific systems. 
+The last part of selecting the correct number of topics for the LDA algorithm is using visualization tools such as pyLDAvis. This visualization tool shows the soft clusters the LDA algorithm provides. As seen in figure \ref{fig:LDAVIS}, each bubble on the left hand side represents a topic. The larger the bubble the more popular the topic. A good topic is considered to be displayed as a big bubble that does not overlap with the other. Therefore, a smaller sized bubble that overlaps with each other, usually has too many topics.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{./figures/LDAVIS.png}
+\caption{Visualization package for LDA}
+\label{fig:LDAVIS}
+\end{figure}
+Based on the coherence score and supported by the observations made in pyLDAvis the researcher elected the LDA parameter number of topics as 20. In the next sub section, the researcher will discuss how the similarity between the documents were calculated.
+
+\section{Similarity between documents}
+One of the main goals of this study is to present similar papers to the readers. In order to do this, the data needs to be tokenized, normalized and cleaned. After the pre-processing pipeline, the tokenized data should be transformed into a vector and fed into the Latent Dirichlet Allocation topic modelling algorithm. After a few iterations and fine tuning of the parameters within the LDA algorithm, the output data can then be used to obtain deeper findings. 
+
+The goal of obtaining in depth information rests on the Jensen-Shannon Divergence algorithm. As seen in figure \ref{lst:jensenfunction}, we were computing the Jenson-Shannon Distance (JSD) using Scipy's entropy. JSD finds the distance between an input query (LDA topic distribution of a single document) and a big matrix (the whole corpus) as seen in line 2. In line 5 it returns an array of length m where m is the number of document in the corpus. 
+
+Later in line 5 the square root of the Jensen-Shannon Divergence is returned because the square root of Jensen-Shannon Divergence is the Jensen-Shannon Distance. The smaller the JSD, the more similar is the two topic distributions to each other, in this case, more similar two documents are to each other.
+\begin{lstlisting}[language=Python, label={lst:jensenfunction}, caption=Implementation of Jensen-Shannon similarity]
+def jensen_shannon(query, matrix):
+    p = query[None,:].T
+    q = matrix.T
+    m = 0.5*(p + q)
+    return np.sqrt(0.5*(entropy(p,m) + entropy(q,m)))
+\end{lstlisting}
+The Jensen-Shannon function in listing \ref{lst:jensenfunction} is then implemented in listing \ref{lst:jensen}, where it actually computes the JSD and returns the top k smallest distances. These Jensen-Shannon distances was then used to find the recommendations of academic papers. 
+
+\begin{lstlisting}[language=Python, label={lst:jensen}, caption=Jensen-Shannon function]
+def get_most_similar_documents(query,matrix,k=10):
+    sims = jensen_shannon(query,matrix) 
+    return sims.argsort()[:k]
+\end{lstlisting}
+
+\begin{table}[]
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Title of test paper} & \textbf{Tokenized paper} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Testing the Harmonised Digital Forensic\\ Investigation Process Model using an \\ Android Mobile Phone\end{tabular} & \begin{tabular}[c]{@{}l@{}}{[}'test', 'harmonis', 'digit', \\ 'forens', 'investig', 'model',\\  'android', 'mobil', 'phone'{]}\end{tabular} \\ \hline
+\end{tabular}
+\caption{Test paper and tokenized output}
+\label{tab:testdigital}
+\end{table}
+
+As mentioned in Chapter \ref{chap: Chapter 3}, the dataset was split into a training set and testing set. The testing set comprised of only one document. The document was kept aside while training the model. The test document was selected at random using a simple Python random function. The title of the test paper can be seen in table \ref{tab:testdigital}, along side the tokenized words from that one document corpus. Interpreting the tokenized data, a fairly good guess can be made of the content of the paper. The researcher translated the tokenized data as testing a model in the digital forensic field, looking at mobile phones, Android more specifically. 
+
+\begin{table}[]
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Title of papers} & \textbf{Scores} \\ \hline
+The Design of a Wireless Forensic Readiness Model (WFRM) & 0.426 \\ \hline
+\begin{tabular}[c]{@{}l@{}}Mobile Forensics using the Harmonised Digital Forensic \\ Investigation Process\end{tabular} & 0.452 \\ \hline
+\begin{tabular}[c]{@{}l@{}}Enhancing Digital Business Ecosystem Trust and Reputation with\\  Centrality Measures\end{tabular} & 0.498 \\ \hline
+\begin{tabular}[c]{@{}l@{}}Mobile cyber-bullying: A proposal for a pre-emptive approach to risk\\  mitigation by employing digital forensic readiness\end{tabular} & 0.497 \\ \hline
+Remote Fingerprinting and Multisensor Data Fusion & 0.508 \\ \hline
+\begin{tabular}[c]{@{}l@{}}Real-time Distributed Malicious Traffic Monitoring for\\  Honeypots and Network Telescopes.\end{tabular} & 0.509 \\ \hline
+Harmonised Digital Forensic Investigation Process Model & 0.549 \\ \hline
+Digital Forensic Readiness in the Cloud & 0.579 \\ \hline
+\begin{tabular}[c]{@{}l@{}}Towards a Digital Forensic Readiness Framework for \\ Public Key Infrastructure Systems\end{tabular} & 0.592 \\ \hline
+Bimodal Biometrics for Financial Infrastructure Security & 0.603 \\ \hline
+\end{tabular}
+\caption{Similarity scores of the most similar academic papers}
+\label{tab:digital}
+\end{table}
+
+Looking at the JSD output of the two topic distributions, whole corpus and the one document, a recommendation can be made. In listing \ref{tab:digital} we can see that the scores are sorted in ascending order, ranging from 0,426 to 0,603. Smaller the score the more similar that specific document is to the test document. However, no hard-coded threshold would have made a difference in identifying the top most similar documents. These most similar documents were in fact closely similar to the test document. 
+
+\section{Conclusion}
+This chapter discussed the prototype development. It outlined the importance of having a good pre-processing pipeline in place. Feeding the data that was extracted from PDF's into a JSON format file and stored on Github for easy access ability. After the data was tokenized and pre-processed, it was transformed into a vector so the LDA algorithm could use the data. Through the iterations of fine tuning the parameters of the LDA model the number of topics were chosen (20 topics) and fed into the Jensen-Shannon Divergence similarity model and the papers were all ranked based on similarity scores. Smaller similarity scores indicates that, that particular paper is very similar to the test paper.
+The next chapter discusses the lessons learned while developing the prototype.

@@ -1,0 +1,194 @@
+\documentclass[mtech,copromote]{PETthesis}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+%% The options here are
+%% btech, if you do your proposal for your B Tech project mini-thesis
+%% mtech, if you do your proposal for your M Tech dissertation
+%% dtech, if you do your proposal for your D Tech thesis
+%% mtechbis, if you do the dissertation component of the M Tech (Business Administration
+%% copromote, if you are being co-promoted
+%% prepare, if you want to save a page initially with the title page - also datestamp the copy
+\title{A Model for Recommending Related Research Papers: A Natural Language Processing Approach}
+\author{Juandre Anton van Heerden}        % use your full names
+\thesismonth{December}
+\thesisyear{2021}
+\thesispromoter{Prof. Reinhardt A. Botha}     % use abbreviations for second names
+\thesiscopromoter{Prof. Bertram P. Haskins}          % Only makes a difference if copromote
+                                        % option specified in class
+
+%% I suggest that you always include these packages
+\usepackage{graphicx}   % to use eps graphics
+\usepackage{lscape}
+\usepackage{svg}
+\usepackage{amsmath}
+\usepackage{apacite}    % enable apa citations to be formatted correctly
+\usepackage{url}        % handle urls that need to break accross lines
+\usepackage{booktabs}   % a bit nicer tables than the standard -- not part of standard distribution
+\usepackage{amsthm }    % for having nice definition and theorem environments
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{color,soul}
+\usepackage[flushleft]{threeparttable}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{pdfpages}
+\usepackage{tcolorbox}
+\usepackage{dirtytalk}
+\usepackage[utf8]{inputenc}
+%\usepackage{todonotes}
+\usepackage[normalem]{ulem}
+
+
+
+\useunder{\uline}{\ul}{}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+\newtheorem{lesson}{Lesson}
+
+%\graphicspath{{./eps/}} % keep those large eps files in separate sub-directory
+                        % one down from current directory  -- if you want to that is
+
+\bigspace               % enables the one-and-half spacing (about) for the document
+                        % if you need to use single spacing in eg a table
+                        % switch to \smallspace and immediately afterwards
+                        % use \bigspace again
+
+%\includeonly{Chapter1, Chapter8}
+
+\begin{document}
+
+% This next part sets up my list of caveats that I'm going to use later in the document
+% It uses the package amsthm
+
+\theoremstyle{plain}               % make a theory type called cav
+\newtheorem{cav}{Caveat}           % of type plain
+\theoremstyle{remark}              % and one called sol,
+\newtheorem{sol}{Solution}         % of type remark
+                                   % which would be numbered as "Caveat 1", "Solution 1", etc.
+                                   % plain = title and number bold, rest italics
+                                   % definition = title and number bold and rest normal
+                                   % remark = title and number in italics and text normal
+                                   % Obviously the name (cat, sol) can be anything...
+
+%\setcounter{secnumdepth}{4}
+\maketitle
+%% This maketitle will generate
+%% If not in prepare mode
+%%   -- a coverpage (title and name)
+%%   -- a title page with the relevant rhymes :-)
+
+%------------------------------%
+% Start of the actual document %
+%------------------------------%
+
+% FIRST ALL THE INTRO JUNK
+% Typically that include
+% -- an appropriate declaration (see the example in frontstuff.tex) mandatory for M and D's)
+% -- Abstract (mandatory for all)
+% -- Acknowledgements (that's where you thank me - hie-hie)
+%\hyphenation{informa-tion security culture factor achieving Governance CGICT General F-CGICT}   %Words to hyphenate or NOT
+\frontmatter           % Sorts out the different page numbering, heading numbering etc.
+\include{frontstuff}   % This file contains examples of the above
+                       % Off course then there is the customary table of contents etc.
+\tableofcontents
+
+\listoftables
+
+\listoffigures
+
+\lstlistoflistings
+
+\mainmatter            % Sorts out the different page numbering, heading numbering etc.
+
+%% At the M and D level your dissertation/thesis are often consisting of
+%% distinct parts, each containing several chapters
+%% Typical Parts = Introdustion, Model development, Epiloque/Evaluation
+%% These can be indicated with \part commands
+
+%\part{Dissertation}
+
+%% Each chapter can now be included
+%\include{frontstuff}
+\include{Chapter1}
+\include{Chapter2}
+\include{Chapter3}
+\include{Chapter4}
+\include{Chapter5}
+\include{Chapter6}
+\include{Chapter7}
+\include{Chapter8}
+
+
+
+
+%---------------------------------------------------------------------------------------------
+%  The Bibliography part is fairly standard in any document
+%---------------------------------------------------------------------------------------------
+% plain = [1], [2] etc
+% alpha = [Bot01], [BE01]
+% With APA citing (apacite) you can in text use
+%      \cite{XXX} to produce (SName1, SName2, & SName3, 2001) style references, or
+%                            (SName1 et al., 2001) depending on position in doc; also
+%      \citeA{XXX} to produce SName1, SName2, & SName3 {2001) lookalikes, or
+%                              SName1, et al. (2001) depending on position in doc.
+%---------------------------------------------------------------------------------------------
+% Although these below looks like comments the WinEdt editor will use it to build a project tree
+% and the gather interface will pop up when you reference sources (provided a proj tree has been built
+
+
+    %% This line ensures that you can see the
+%GATHER{library.bib}
+    %% bibliography in the project tree
+                                 %% and that subsequently type \cite{} will pop up
+                                 %% your references - Note the UNIX style / directories!
+\bibliographystyle{apacite}      %% Specifies that apa citation style should be used
+\bibliography{library}
+                                 %% To let BibTeX collect the references from a central place
+                                 %% is a good idea.  You will be writing multiple documents
+                                 %% while doing your project, but want to use one bib file
+                                 %% for consistency
+                                 
+%\appendix  % Sorts out the different page numbering, heading numbering etc.
+
+%\part{Appendices}
+
+%\include{AcademicPublications}
+%\include{Questionnaires}
+%\include{Framework}
+
+\backmatter                                 
+
+%\include{appendixB}
+\end{document}
+
+% ----------------------------------------------------------------

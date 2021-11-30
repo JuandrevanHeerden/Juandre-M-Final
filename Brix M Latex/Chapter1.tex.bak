@@ -1,0 +1,37 @@
+\chapter{INTRODUCTION}
+
+\section{Background}
+In today's business world information is a valuable commodity and
+as such needs to be protected. It affects all aspects of today's
+businesses, from top management right down to operational level.
+In order to stay competitive in this information age,
+organizations typically make large investments in terms of time,
+money and energy to streamline the processes of capturing,
+generating and distributing vital information resources throughout
+the organization. Unfortunately, this distribution of
+mission-critical information throughout the company also increases
+the likelihood of misuse or damage to information resources
+\cite{B:Haag:00}. Such misuse or damage could have devastating
+effects on an organization's overall well being.
+
+
+\section{Example}
+
+This is an example numbered list
+\begin{enumerate}
+  \item First item in list
+  \item Second list item
+  \item Last item in list
+\end{enumerate}
+
+This is an example graphic.
+\begin{figure}[!h]
+\centering
+\includegraphics[scale =0.9]{Schein_1}
+\caption{The image caption (adapted from \protect \cite{B:Haag:00} }} \label{example}
+\end{figure}
+
+
+\section{Layout Of The Dissertation}
+
+\section{Summary}
