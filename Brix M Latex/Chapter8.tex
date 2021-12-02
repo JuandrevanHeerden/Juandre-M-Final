@@ -21,45 +21,37 @@ This secondary objective was met by surveying the literature of Recommender Syst
 This secondary objective was met by surveying several machine learning techniques. The goal of this objective was to identify and better understand what machine learning techniques there are, and how they tie into recommender type systems.
 Machine Learning in section \ref{ssec:MLoverview}, Natural Language Processing in section \ref{secc:LDAover} and Topic Modeling in section \ref{ssec:tmodel} paved the way to understand the technology that would be used in this study.
 
-The selection of the topic model algorithm that would be most suitable was also stemmed from literature. More specifically in section \ref{ssec:tmodel} it was discussed that Latent Dirichlet Allocation (LDA) was a very popular choice for building such topic models. Furthermore, section \ref{ssec:LDAA} explains how LDA works, by computing hidden topic structures from documents.
+The selection of the topic model algorithm that would be most suitable came from literature. More specifically in section \ref{ssec:tmodel} it was discussed that Latent Dirichlet Allocation (LDA) was a very popular choice for building such topic models. Furthermore, section \ref{ssec:LDAA} explains how LDA works, by computing hidden topic structures from documents.
 
-Before developing the conceptual model, the research methodology was discussed in Chapter \ref{chap: Chapter 4}. More specifically the research process that will be followed to conceptualise the model based on the previous chapters
+The main research objective was met by consolidating \textbf{SO 1} and \textbf{SO 2} to form a conceptual model. The model was refined by developing a prototype. While developing the prototype components outlined in the conceptual model Chapter \ref{chap: Chapter 5} were used. 
 
-Formulating the concepts into a plan of action, Chapter \ref{chap: Chapter 5} was introduced. The conceptual model was developed by looking at content covered in Chapters \ref{chap: Chapter 2} and \ref{chap: Chapter 3}. The Data Analytics lifecycle was adopted as seen in Figure \ref{fig:lifecycle} to help conceptualise the model.
+To develop such a model some guidance were needed. The researcher used the data analytics lifecycle process to harness work done by secondary objective one and two.
+Further refinement was needed on the model to display research rigor. 
 
-Chapter \ref{chap: Chapter 6} was crucial to better understand the concepts introduced by Chapters Chapter \ref{chap: Chapter 2} and Chapter \ref{chap: Chapter 3}. The prototype served as dual purpose. The prototype highlighted parameters that has an influence on the prototype but also the overarching model. In addition to this, building a prototype using concepts in the other chapters helped the model proved that the model is feasible. Using information security research papers with security specific wording also proved the model to be applicable to domains like information security.
+A prototype was developed to refine, ensure amendments to be done and evaluate the model. The development of the model was documented in Chapter \ref{chap: Chapter 5} and accompanied by the development of the prototype in Chapter \ref{chap: Chapter 6}. Using the prototype the model was evaluated to show if it is applicable and feasible. Furthermore, the model demonstrated applicability since it requires domain specific data for training and it was done using information security South Africa conference data.
+In addition to that, the model also demonstrated feasibility with the ease of using recommender system and machine learning techniques.
 
-Throughout the prototype and model development, practical lessons were learned. Those reflections 
-were shared in Chapter \ref{chap: Chapter 7}. Especially, looking at Figure \ref{fig:processing1}, we can see which lessons were learned for each phase of the conceptual model.
+In the next section, a reflection of the model will be discussed.
 
-In the next section, we discussed the proposed model.
-
-\section{The Proposed Model}
+\section{Reflection on the Model}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=15cm]{./figures/Lesson.eps}
+\includegraphics[width=15cm]{./figures/Lesson77.eps}
 \caption{Mapping lessons learned to the model}
 \label{fig:processing1}
 \end{figure}
 
-This section discusses the proposed model of this study, which met the primary research objective \textbf{\textit{To develop an Recommender system which will automatically recommend similar research papers.}}
+This section reflects on the model and the accompanying prototype. The model was set out to identify related research papers. The model specified the process that needs to be followed and the prototype showed that it is indeed feasible to implement. The prototype showed that it worked within the specific domain of information security papers since we used information security South Africa conference papers from 2006 - 2016 as data. Addressing the main objective using the model and prototype, I showed that it can be done theoretically and practically.
 
-The content in chapters \ref{chap: Chapter 2} and \ref{chap: Chapter 3} set the foundation for the rest of the study. Moreover, Chapter \ref{chap: Chapter 2} focused on recommender systems, what the recommendation task entails and what the different types of recommender systems exist. 
+The prototype served a dual purpose. The first is to learn technologies and gain first hand experience related to recommender systems. The second was to demonstrate the applicability by using various technologies and feasibility by using a information security specific domain. 
 
-Chapter \ref{chap: Chapter 3} explored the different machine learning technologies which are linked to recommender systems. Looking at the data that was used, the data was not labeled. As guided by literature, the suggested approach was to use unsupervised learning, to look for underlying themes. Furthermore, to help identify underlying themes document clustering which is a subset of machine learning was used in the prototype. Having two or more probability distributions, the similarity between the distributions was identified.
+The majority of the lessons learned exists on the topics quadrant of the model as depicted in Figure \ref{fig:processing1}. I found that removing the stopwords and stemming the data has been streamlined and the body of knowledge is well defined. Removing stopwords and stemming presents two lessons to draw future researchers attention to the subtleties in the area. For testing similarity measures only Jensen-Shannon Divergence was tested. Jensen-Shannon Divergence does not use parameters, and therefore had an big influence on the preceding steps.
+This opens up opportunities for future research to be done using different similarity measure technologies which contains parameters. 
 
-The suggested algorithms and processes in the previous chapters greatly influenced the research design chapter. As this study finds itself in the exploratory sphere, it was important to understand the research paradigm. Understanding the paradigm led to choosing a set of research methods and therefore, a plan of action on how to achieve the research goals.
+To get back to the majority of the lessons about determining the topics. Lessons four, seven and nine shows us that if we can better define the domain the model will perform better. A trade-off between accuracy and generality thus exist. In the prototype the domain was limited to information security papers by using research papers from the information security South Africa conference. 
 
-The conceptual model was created using literature from Chapters \ref{chap: Chapter 2} and \ref{chap: Chapter 3} and guided by Chapter \ref{chap: Chapter 4}. The conceptual model, in Chapter \ref{chap: Chapter 4}, used the Data Analytics Lifecycle and adapted to the use case of this study. A prototype was developed to help the researcher understand how all these concepts fit together.
-
-The prototype was developed with dual purpose and was documented in Chapter \ref{chap: Chapter 6}. The prototype provided the ability to observe the influence parameters has on recommendations. The experiments were conducted and documented in Chapter \ref{chap: Chapter 7}. The other purpose was to check if the model and prototype is feasible and applicable. The researcher used technologies which are still relevant today. Using these technologies and real conference data to test the prototype deems this study feasible and applicable.
-
-Lastly, Chapter \ref{chap: Chapter 7} hosted the discussion to what practical lessons were learned during the development of the prototype, as seen in Figure \ref{fig:processing1}. 
-
-In summary, Figure \ref{fig:processing1} represents the collection of work done in Chapters \ref{chap: Chapter 5}, \ref{chap: Chapter 6} and \ref{chap: Chapter 7}. After constructing the conceptual model in Chapter \ref{chap: Chapter 5} based on literature, chapter \ref{chap: Chapter 6} focused on validating the conceptual model. The validation was done by developing a prototype which was outlined in \ref{chap: Chapter 6}. Lastly, chapter \ref{chap: Chapter 7} included all the lessons that was learned throughout the process constructing the model and developing the prototype.
-
-In the next section, research limitations will be discussed.
+Moving on to lesson three, manual intervention. I found that evaluation techniques for machine learning algorithms are well defined and streamlined. However, human validation are still needed as bad topics still make it into the system. Thus challenging further researchers to look for methods and techniques that eliminates such human intervention altogether. 
 
 \section{Research Limitations}
 This study has some limitations that must be recognized. The first limitation is that of the sample size. At the time of data collection, the information security South Africa conference only had 254 research papers to use in the dataset. Of that 254 research papers certain topics are discussed in a small number. If the topics are scarce during training, the recommendation task will be very difficult to complete. The goal was to train and test the prototype using one specific library of one conference.
@@ -78,9 +70,8 @@ Reflecting on the second limitation, the study could include multiple Topics Mod
 
 Similarly, the third limitation, using different similarity measures could lead to different recommendations. Furthermore, mixing different Topic Models with similarity measures could yield better results.
 
-The forth limitation which includes human intervention to evaluate each phase could sped up the model implementation, since getting feedback every step of the way.
-
-The four limitations can also be seen as practical lessons that the researcher has learned. Along with the Table \ref{tab:lessons}, suggestions for further research and lesson learned can be seen as the same.
+The forth limitation which includes human intervention to evaluate each phase could speed up the model implementation, since getting feedback every step of the way. Suggestion for further research can include looking for methods and techniques that eliminates manual intervention.
 
 \section{Epilogue}
 This study identified that it's time consuming for researchers to look for related research papers. This problem was addressed by developing a model to recommend related research papers. During the development of the model and prototype, it was evident that machine learning bridges the gap of spotting latent themes. However, the lessons learned Chapter \ref{chap: Chapter 7}, shows that when other researchers endeavour onto similar topics a great learning curve awaits. The researcher hopes that this study motivates other researchers to advance the natural language processing and machine learning research angle traditional topics.
+

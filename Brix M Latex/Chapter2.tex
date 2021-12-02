@@ -18,12 +18,12 @@ Information filtering systems stretch across multiple domains and are useful for
 The above features are not only limited to information filtering systems but also information retrieval. It is important to remember that information filtering and information retrieval do work similarly, but differ in characteristics indicated below, and in summary in Table \ref{tab:DIFCBFIR}.
 
 \begin{enumerate}
-    \item Frequency of use – Information retrieval [IR] systems are designed for one-time, ad hoc users, whereas information filtering [IF] systems are created for repetitive uses.
-    \item Representation of information needs – In information retrieval systems, users interact with queries. In contrast, in information filtering systems, the long-term needs of users are best saved in user profiles.
-    \item Goal – Information retrieval systems select the information stated in the query out of the database. Information filtering systems just filter out irrelevant data.
-    \item Database – Information retrieval systems usually employ static databases to store and retrieve information. Information filtering works with dynamic data.
-    \item Types of users – Information retrieval systems do not know the users, and anyone can pose a query. Users of information filtering systems need to be known, since the system has models of all the user profiles.
-    \item Index – Information retrieval systems index data based on items and information filtering systems index based on user profiles.
+    \item Frequency of use – information retrieval [IR] systems are designed for one-time, ad hoc users, whereas information filtering [IF] systems are created for repetitive uses.
+    \item Representation of information needs – in information retrieval systems, users interact with queries. In contrast, in information filtering systems, the long-term needs of users are best saved in user profiles.
+    \item Goal – information retrieval systems select the information stated in the query out of the database. Information filtering systems just filter out irrelevant data.
+    \item Database – information retrieval systems usually employ static databases to store and retrieve information. Information filtering works with dynamic data.
+    \item Types of users – information retrieval systems do not know the users, and anyone can pose a query. Users of information filtering systems need to be known, since the system has models of all the user profiles.
+    \item Index – information retrieval systems index data based on items and information filtering systems index based on user profiles.
 \end{enumerate}
 
 \begin{table}[]
@@ -118,11 +118,6 @@ Content-based filtering often suffers from over-specialisation since it recommen
 
 In the next section, the high-level architecture of a recommender system will be discussed.
 
-
-
-
-
-
 \section{High level Architecture of Recommender Systems}
 
 \begin{figure}[htbp]
@@ -146,12 +141,12 @@ More components will be introduced later in this section. Recommender systems ar
 \end{figure}
 
 \begin{itemize}
-    \item The data analyser component – The items are obtained or collected (e.g. documents) from information providers. The items are then analysed and represented in a readable format (e.g. in a vector of index terms).
+    \item The data analyser component – the items are obtained or collected (e.g. documents) from information providers. The items are then analysed and represented in a readable format (e.g. in a vector of index terms).
     Such a vector will be the input to the similarity model component.
-    \item The user/item model component – It gathers information about the user and their needs (explicitly and/or implicitly) and is constructed as user profiles. Then the user profiles will also serve as input to the similarity filtering component. In most collaborative filtering recommender systems, users will have items recommended based on their item model.
+    \item The user/item model component – it gathers information about the user and their needs (explicitly and/or implicitly) and is constructed as user profiles. Then the user profiles will also serve as input to the similarity filtering component. In most collaborative filtering recommender systems, users will have items recommended based on their item model.
     When the system recommends items, it will compare similar users.
-    \item The similarity model component – It consists of matching the user profile or item models to the corresponding items and calculating the similarity between them.
-    \item The learning component – The user who gets the relevant data item is ultimately the catalyst for feedback. Furthermore, the data is then updated with the new user preference to improve further predictions.
+    \item The similarity model component – it consists of matching the user profile or item models to the corresponding items and calculating the similarity between them.
+    \item The learning component – the user who gets the relevant data item is ultimately the catalyst for feedback. Furthermore, the data is then updated with the new user preference to improve further predictions.
 \end{itemize}
 
 Various methods and techniques can be used to integrate content-based recommender systems: There are many ways to analyse data items and to represent them in better ways, ultimately to gain more knowledge from the user to implement back into  the user models. More of those techniques will be discussed in Chapter \ref{chap: Chapter 3}.
