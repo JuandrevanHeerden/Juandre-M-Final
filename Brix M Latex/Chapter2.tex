@@ -34,7 +34,7 @@ The above features are not only limited to information filtering systems but als
 \textbf{Characteristics}     & \textbf{Information Retrieval}                                                                                                    & \textbf{Information Filtering}                                                                                                                                   \\ \hline
 Frequency of use             & ad-hoc use                                                                     & \begin{tabular}[c]{@{}l@{}}long term users \end{tabular}                                                     \\ \hline
 Representation of information needs & queries                                                                                                        & user profiles                                                                                                                                  \\ \hline
-Goal                         & \begin{tabular}[c]{@{}l@{}}Selecting relevant items \end{tabular} & \begin{tabular}[c]{@{}l@{}}Filtering out irrelevant data\end{tabular} \\ \hline
+Goal                         & \begin{tabular}[c]{@{}l@{}}selecting relevant items \end{tabular} & \begin{tabular}[c]{@{}l@{}}filtering out irrelevant data\end{tabular} \\ \hline
 Database                     & static                                                                                                         & dynamic                                                                                                                                        \\ \hline
 Type of users                & not known to the system                                                                                        & \begin{tabular}[c]{@{}l@{}}known to the system,\\ a user model\\ is saved in the system\end{tabular}                                           \\ \hline
 Index              & items                                                                                        & \begin{tabular}[c]{@{}l@{}}user profiles\end{tabular}                                                        \\ \hline
@@ -46,7 +46,7 @@ Index              & items                                                      
 
 As highlighted in Table \ref{tab:DIFCBFIR}, information retrieval and information filtering does work similarly but there are some differences at their core. \citeA{resnick1997} mention that sources suggest using recommender systems to tailor content to users.
 
-The aim of information filtering (IF) is to show only the items that are relevant to the users \cite{hanani2001information}. The idea was that Information Filtering can be more effective when humans are involved in the filtering process \cite{hanani2001information}.
+The aim of information filtering (IF) is to show only the items that are relevant to the users \cite{Hanani2001}. The idea was that Information Filtering can be more effective when humans are involved in the filtering process \cite{Hanani2001}.
 
 Because the spike of product information makes it harder for users to find what they are looking for online, e-commerce sites like Amazon.com use collaborative filtering based on purchase history and customer ratings to make personalised recommendations.
 
@@ -54,7 +54,7 @@ Since the introduction of collaborative filtering in the 1990s, recommender syst
 
 ‘A recommender system is defined as a tool that can recommend a list of items to a particular set of users based on the user’s preferences’ \cite[p.~4]{ricci2011introduction}.
 
-They have successfully applied recommender systems to different domains such as e-commerce, movies, news, music, research, just to name a few \cite{grau2009personalized}. For example, on Amazon and Netflix users buy and watch more content that is recommended to them \cite{Andre2018} now that the gravity of recommender systems is emphasised.
+They have successfully applied recommender systems to different domains such as e-commerce, movies, news, music, research, just to name a few. For example, on Amazon and Netflix users buy and watch more content that is recommended to them \cite{Andre2018} now that the gravity of recommender systems is emphasised.
 
 \citeA{adomavicius2005toward} have identified three types of recommendation methods. They are:
 \begin{enumerate}
@@ -64,7 +64,7 @@ They have successfully applied recommender systems to different domains such as 
 \end{enumerate}
 In the following section, we will discuss the various types of recommendation methods.
 
-\section{Collaborative Filtering (CF)}
+\section{Collaborative Filtering (CF)}  \label{sec:collab}
 
 Collaborative filtering systems assume that a user will like the same items as another user liked in the past. Collaborative filtering systems are popular and are commonly used in online shopping websites \cite{Nilashi20161}.
 
@@ -97,7 +97,7 @@ The preferred ones are the latent factor models that reduces the dimensionality 
 
 In the next section, the content-based filtering method will be discussed, followed by its advantages and disadvantages.
 
-\section{Content-based Filtering}
+\section{Content-based Filtering} \label{sec:content}
 The content-based approach to recommendation has its roots in the information retrieval (IR) and information filtering (IF) research field. Recently, much research has been undertaken in the recommendation systems, information retrieval and information filtering fields.
 
 Pushing the boundries in terms of what each field can do, content-based filtering methods analyse a set of features of items that are relevant to the user and link the user profile based on those items. In essence, the method links the users to the items \cite{lops2011content}.
@@ -166,19 +166,23 @@ Furthermore, this phenomenon raises the need to create domain knowledge to link 
 The term hybrid recommender system comes from the combination of collaborative- and content-based filtering techniques. The combination of the two increases their individual performances by reducing the severity of the cold-start problem. On the other hand, it will diversify the recommendations given to the user. Three base designs of hybrid recommender systems were presented by \citeA{burke2002hybrid}. These are:
 
 \begin{enumerate}
-    \item One base design is a single recommender system that considers a wide range of input data from other recommendation techniques in one algorithm implementation \cite{dong2017hybrid}. For example, a hybrid system was proposed to combine features like user ratings, and features of the items \cite{basu1998recommendation}.
+    \item One base design is a single recommender system that considers a wide range of input data from other recommendation techniques in one algorithm implementation \cite{dong2017hybrid}. For example, a hybrid system was proposed to combine features like user ratings, and features of the items.
     \item Furthermore, another design made an appearance by combining the two methods. The combination was not in series, but rather parallelised \cite{sharma2016evolution}, taking each method’s output and recommending both to the user.
     \item Lastly, recommender systems are joined together in a pipeline where the output of one recommender system is the input of the other one.
 \end{enumerate}
 
-\section{Conclusion}
+\section{Summary}
 The rise of information creation and content on the internet has created a problem. In the problem, it was found that researchers are experiencing cognitive barriers. These barriers include not knowing which pieces of information are relevant to their study, and actually not obtaining the correct information to include in their studies.
 
 Information filtering and information retrieval were discovered, which aided the larger audience to scope down information to only a few lines. Many employed these techniques in various sections in the industry. These advances led to the creation of recommender systems.
 
-Each type of recommender system has specific capabilities. This chapter gave a brief overview of what each recommender system method can achieve.  It looked at the architectural overview in Section \ref{fig:archRS}. The implementation of the recommender system relies on the user case of the implementer.
+Each type of recommender system has specific capabilities. This chapter gave a brief overview of what each recommender system method can achieve.  It looked at the architectural overview in Section \ref{fig:archRS}. The implementation of the recommender system relies on the use case of the implementer. 
 
-The next chapter, Chapter \ref{chap: Chapter 3},, discusses the various technological concepts like machine learning, topic modeling, document clustering, and natural language processing.
+For the use case of this study, the recommender system would need to at least understand content. Furthermore, the recommender system would need to identify specific terminology since the dataset contains Information Security related papers. This study does not have historic user recommendation data to feed into the recommender system. 
+
+As described in Section \ref{sec:collab}, collaborative filtering uses item and user pairing to recommend items what other users have liked in the past. Furthermore, collaborative filtering does not look at the content of items. The utility of collaborative filtering did not compliment the use case of the study and, therefore a content based recommender system was used.
+
+The next chapter, Chapter \ref{chap: Chapter 3}, discusses the various technological concepts like machine learning, topic modeling, document clustering, and natural language processing.
 
 
 

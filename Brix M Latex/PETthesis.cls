@@ -186,7 +186,7 @@
   \def\@thesisfaculty{#1}
 }
 \ifx\@thesisfaculty\empty
-  \def\@thesisfaculty{Faculty of Engineering, the Built Environment and Information Technology}
+  \def\@thesisfaculty{Faculty of Engineering the Built Environment and Technology}
 \fi
 \newcommand{\thethesisfaculty}{
   \@thesisfaculty

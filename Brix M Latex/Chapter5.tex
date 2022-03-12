@@ -13,7 +13,7 @@ The recommendation model uses various algorithms and techniques derived from Cha
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{./figures/datalifecycle.eps}
-\caption{Data Analytics lifecycle}
+\caption{Data Analytics lifecycle \protect\cite{STOREY201750}}
 \label{fig:lifecycle}
 \end{figure}
 
@@ -56,7 +56,7 @@ Operation & Enable decision makers & Evaluation - Chapter \ref{ssec:eval} \\ \hl
 \label{fig:Modeloverview}
 \end{figure}
 
-With the above being said, the researcher felt the need to provide a mapping between the terminology used in the research domain and this study. As seen in Figure \ref{tab:mapping}, it should be known that when the researcher uses terminology like past papers, pre-processing, and learning they hold the exact content of the corresponding terms used in research. The column on the right in Figure \ref{tab:mapping} can be translated to be the domain and/ or section in this study which addressed each phase of this model.
+With the above being said, the researcher felt the need to provide a mapping between the terminology used in the research domain and this study. As seen in Table \ref{tab:mapping}, it should be known that when the researcher uses terminology like past papers, pre-processing, and learning they hold the exact content of the corresponding terms used in research. The column on the right in Table \ref{tab:mapping} can be translated to be the domain and/ or section in this study which addressed each phase of this model.
 
 This section of the chapter covers the model overview, as seen in Figure \ref{fig:Modeloverview}. The model is categorised into three components: (1) past papers, (2) learning, and (3) processing.
 
@@ -105,12 +105,6 @@ The result of the methodology mentioned above was smaller topics. These were sec
 \subsection{Measuring the similarities}
 The vast number of topics made it challenging to group similarities of papers. The topics were too dense from the perspective of dimensionality. For the scope of this research, similarity algorithms reduced dimensionality. In addition to the dimension reduction, the unsupervised learning approach made it viable to use an algorithm to cluster similar topics. This would have a direct impact on measuring the similarities in the academic papers.
 
-\subsection{Learning component summary}
-
-There are four components to the conceptual model. They were discovered by reviewing literature and by building a proof of concept. The first component on the list, stopword removal, was fundamental in getting the text ready for further analysis. The stopword list was compiled by using the standard NLTK stopword list and adding a few first tier information security topics, to reduce scope.
-
-The second component, stemming, removed the suffix of certain words to take them to their root form. For the third component, topics, the corpus exists of various tiers of topics. A collection of specific tier topics would form a topic in a higher tier. The similarity between these topics would then be calculated to reduce dimensionality and to cluster most similar topics together.
-
 \section{Processing}
 
 In this section, the next phase of the conceptual model will be discussed. The academic paper processing phase is executed when a new and unseen academic paper is submitted. Just like the learning component, this phase also has four components. It is merely an extension of the components found in the learning component.
@@ -139,13 +133,13 @@ A topic modeling technique was then applied to the dataset after it was transfor
 
 \subsection{Measuring the similarities}
 
-At this point of the conceptual model, the stemmed words that did not contain any stopwords were pushed through the topic modelling technique. The product of the previous three components was a collection of topics that represented the dataset. The collection of topics of the dataset and the topics of the test set were measured in terms of similarity. The lower the score, the more similar the two papers were with one another.
+At this point of the conceptual model, the stemmed words that did not contain any stopwords were pushed through the topic modeling technique. The product of the previous three components was a collection of topics that represented the dataset. The collection of topics of the dataset and the topics of the test set were measured in terms of similarity. The lower the score, the more similar the two papers were with one another.
 
 \subsection{Processing phase summary}
 
 In this section, we discussed the academic paper processing phase. This phase was executed when a new document was submitted. The dataset already removes the stopwords, stemmed, and determined the topics. Once a new document was submitted, it went through the same process. The only difference there was that the similarity of the two datasets were then measured. The topics with the lowest score were most similar.
 
-\section{Conclusion}
+\section{Summary}
 
 The conceptual model presented in this chapter is a template for finding similar academic papers. The use case for this research was focused on information security academic papers. However, it can be used to find any academic papers across disciplines. The conceptual model was built on a collection of academic papers or datasets. Various learning components were identified while surveying the field. The learning components were broken down into four distinct components: (1) stopword, (2) stemming, (3) topics, and (4) similarity.
 
@@ -155,6 +149,6 @@ First, the dataset was cleaned of all the stopwords. Special consideration was m
 
 Second, once the stopwords were removed, next would be to stem the remaining data. Stemming commonly includes omitting the suffix of a word. This was done to return the word to its root form.
 
-Third, topics were determined by using a topic modelling technique. The technique helped soft cluster all of the similar terms together, which formed topics. These topics consisted of the ’training set’ corpora. Once a ’test set’ document appeared, it was run through the same components.
+Third, topics were determined by using a topic modeling technique. The technique helped soft cluster all of the similar terms together, which formed topics. These topics consisted of the ’training set’ corpora. Once a ’test set’ document appeared, it was run through the same components.
 
 Once we had the ’training set’ and ’test set’ ready, the last component measured the similarity between the two sets. The new, unseen ’test set’ document was then hard clustered to the most similar set of topics. In the next chapter, the prototype development will be discussed.
