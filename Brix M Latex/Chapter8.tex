@@ -58,10 +58,12 @@ Moving on to lesson three, manual intervention. It was found that evaluation tec
 
 This study has some limitations that must be recognised. The first limitation is that of the sample size. At the time of data collection, the Information Security South Africa conference only had 254 research papers to use in the dataset. Of those 254 research papers, certain topics are only discussed in a limited number. If the topics are scarce during training, the recommendation task will be very difficult to complete. The goal was to train and test the prototype using one specific library of one conference.
 
-The second limitation is that only one topic modeling technique (latent dirichlet allocation) was used. There were several reasons for this,  one of which is that recent research suggests that when using content-based approaches, latent dirichlet allocation would be preferred. Considering time constraints, since this is a Master’s study, we felt it right to go ahead with the one topic modeling technique.
+The second limitation is that only one topic modeling technique (latent dirichlet allocation) was used. There were several reasons for this, one of which is that recent research suggests that when using content-based approaches, latent dirichlet allocation would be preferred. Considering time constraints, since this is a Master’s study, we felt it right to go ahead with the one topic modeling technique.
 
 The third limitation is that this study only uses Jensen-Shannon Divergence to calculate the similarity between the two data spaces (test set and training set). Similar to the second limitation, time did not allow us to venture deeper into different similarity measures.
-Lastly, the fourth limitation includes not having a human factor to evaluate each phase individually. The phases which are referred to are the outputs of the topic modeling technique and also the end result of the similarity measurement.
+The fourth limitation includes not having a human factor to evaluate each phase individually. The phases which are referred to are the outputs of the topic modeling technique and also the end result of the similarity measurement.
+
+Lastly, the fifth limitation is that this study did not compare how different recommender systems performed (optimisation and recommendations). This research study focused on documenting the process of using one recommender system and discussing the observations.
 
 \section{Suggestions for further research}
 
@@ -73,8 +75,9 @@ Similarly, the third limitation, using different similarity measures could lead 
 
 The fourth limitation, which includes human intervention to evaluate each phase, could speed up the model implementation, since one would be getting feedback every step of the way. Suggestions for further research can include looking for methods and techniques that eliminate manual intervention.
 
+Reflecting on the fifth limitation, this study did not compare the performance and recommendations of different recommender systems. This limitation can be addressed in future research by considering alternative recommender systems. Examples of such recommender systems are: a hybrid model \cite{sharma2016evolution} and model-based collaborative filtering \cite{naak2009multi}. Future research could possibly be conducted using data sets which includes user-item pairing data.
+
 \section{Epilogue}
 
-This study identified that it is time consuming for researchers to look for related research papers. This problem was addressed by developing a model to recommend related research papers. During the development of the model and prototype, the researcher did not focus on comparing and optimising different recommender systems and technologies. The focus of the development was documenting the process of using one recommender system and discussing the lessons learned.
-
+This study identified that it is time consuming for researchers to look for related research papers. This problem was addressed by developing a model to recommend related research papers. 
 Throughout the development of the model and prototype, it was evident that machine learning bridges the gap of spotting latent themes. However, Chapter \ref{chap: Chapter 7}, the lessons learned, shows that when other researchers endeavour to explore similar topics, a great learning curve awaits. The researcher hopes that this study will motivate other researchers to advance the research angle of the traditional topic of natural language processing and machine learning. 

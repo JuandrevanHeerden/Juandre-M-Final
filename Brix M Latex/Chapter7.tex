@@ -193,7 +193,7 @@ If the minimum probability is set too high, the topic model runs the risk of not
 
 In Section \ref{ssc:lekker}, the systematic process was discussed that was used in determining the number of LDA topics. In addition to that, lessons were learned throughout the process and will be discussed in this section.
 
-The tests varied from 10 topics to 35 topics. In Listing \ref{lst:cv}, the fluctuating topic coherence scores were a scientific indication of the topic number that would be most suitable. However, the process still needed human intervention to confirm that the topics were making logical sense.
+The tests varied from 10 topics to 35 topics. In Listing \ref{lst:cv}, the fluctuating topic coherence scores were a quantitative indication of the most suitable number of topics. However, the process still needed human intervention to confirm that the topics were making logical sense.
 
 Keeping in mind that the corpus (ISSA Conference papers) was rich in topics, the conference papers contained about 15 primary and secondary topics; essentially, picking 10 or 15 LDA topics to try to represent the topics from the text failed.
 
@@ -289,7 +289,7 @@ In this section the observations will be discussed between the test document and
 
 The layout of the subsection will include observations on what made a topic like digital forensics and similar documents good, what LDA parameters could contribute to the change of similar documents, and how many documents matched. This structure will continue with what was considered a good match and what a bad match.
 
-In addition to the layout of the subsections, two topics were selected to demonstrate the prototype and model. More topics were used in the experiment, however, these topics were selected to draw out the lessons which were learned during the study. Data of the other topics can be viewed in Appendix \ref{appendix: Appendix A}.
+In addition to the layout of the subsections, two topics were selected to demonstrate the prototype and model. More topics were used in the experiment, however, these two topics were selected to illustrate the lessons which were learned during the study. Data related to the the other topics can be viewed in Appendix \ref{appendix: Appendix A}.
 
 \subsection{Digital Forensics}
 
@@ -363,7 +363,11 @@ As simple as it may sound, compared to digital forensics, there were not many do
 
 In this chapter, we discussed several themes while developing the prototype. What changes were needed to be made for the prototype to perform at its maximum? The other theme was the lessons that were learned while administering the changes.
 
-\begin{table}[]
+The lessons learned from each component, as indicated in Figure \ref{fig:prototype}, are summarised and shared in Table \ref{tab:lessons}. The conclusion that is drawn is that pre-processing is certainly one of the most important legs in the pipeline and needs to have most of the time dedicated to it. Each component of the pre-processing process needs to be closely considered. Removing too many words can cause documents not to any similarity to others and leaving too many words can make the LDA model too sensitive.
+
+The experimentation, analysis, and discussion enabled the creation of the model used in Chapter \ref{chap: Chapter 6}. The model outlines the steps that were needed to achieve a recommendation list. It also opened discussions so that researchers can further the research by using additional techniques and algorithms, which will be discussed in the next chapter.
+
+\begin{table}[htb]
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 \textbf{Lesson name} & \textbf{Lesson} \\ \hline
@@ -381,6 +385,3 @@ In this chapter, we discussed several themes while developing the prototype. Wha
 \label{tab:lessons}
 \end{table}
  
-The lessons learned from each component, as indicated in Figure \ref{fig:prototype}, are summarised and shared in Table \ref{tab:lessons}. The conclusion that is drawn is that pre-processing is certainly one of the most important legs in the pipeline and needs to have most of the time dedicated to it. Each component of the pre-processing process needs to be closely considered. Removing too many words can cause documents not to any similarity to others and leaving too many words can make the LDA model too sensitive.
-
-The experimentation, analysis, and discussion enabled the creation of the model used in Chapter \ref{chap: Chapter 6}. The model outlines the steps that were needed to achieve a recommendation list. It also opened discussions so that researchers can further the research by using additional techniques and algorithms, which will be discussed in the next chapter.
